@@ -4,13 +4,15 @@ This guide contains instructions for building the Android code and running the s
 
 ## Supported Operating Systems
 
-This setup has only been tested on Mac OS so far.
+This setup has been tested on Mac OS X and Ubuntu Linux 15.10 so far.
 
 ## Prerequisites
 
-Assuming you have the [Android SDK](https://developer.android.com/sdk/installing/index.html) installed, run `android` to open the Android SDK Manager.
+* [Node.js](https://nodejs.org) and NPM
+* React Native CLI: `sudo npm install -g react-native-cli`
+* [Android SDK](https://developer.android.com/sdk/installing/index.html)
 
-Make sure you have the following installed:
+Assuming you have the Android SDK installed, run `<android_sdk_dir>/tools/android` to open the Android SDK Manager and make sure you have the following installed:
 
 - Android SDK version 23 (compileSdkVersion in [`build.gradle`](build.gradle))
 - SDK build tools version 23.0.1 (buildToolsVersion in [`build.gradle`](build.gradle))
@@ -37,6 +39,15 @@ npm install
 ```
 
 ## Building from the command line
+
+To be able to build a signed APK we need to create a key and add the key information to your `~/.gradle/gradle.properties` file. Example:
+```bash
+MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=my-key-alias
+MYAPP_RELEASE_STORE_PASSWORD=*****
+MYAPP_RELEASE_KEY_PASSWORD=*****
+```
+See full instrucions on this article: [Generating Signed APK](https://facebook.github.io/react-native/docs/signed-apk-android.html)
 
 To build the framework code:
 
@@ -94,8 +105,30 @@ cd react-native-android
 
 ## Troubleshooting
 
-Gradle build fails in `ndk-build`. See the section about `local.properties` file above.
+* Gradle build fails in `ndk-build` and/or fails with the following message:
+```java
+java.lang.RuntimeException: SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.
+```
+See the section about `local.properties` file above.
 
-Gradle build fails "Could not find any version that matches com.facebook.react:gradleplugin:...". See the section about the React Native Gradle plugin above.
+* Gradle build fails "Could not find any version that matches com.facebook.react:gradleplugin:...". See the section about the React Native Gradle plugin above.
 
-Packager throws an error saying a module is not found. Try running `npm install` in the root of the repo.
+* Packager throws an error saying a module is not found. Try running `npm install` in the root of the repo.
+
+* Gradle build fails with the following message: 
+ ```java
+Could not find property 'MYAPP_RELEASE_STORE_FILE' on SigningConfig_Decorated{name=release, storeFile=null, storePassword=null, keyAlias=null, keyPassword=null, storeType=null}
+ ```
+See section about Signed Build above.
+
+* If you have a Ubuntu node.js might have come pre-installed but a very old version. Then you'll probably get a warning executing `npm install`:
+ ```javascript
+npm WARN engine react-native@0.19.0: wanted: {"node":">=4"} (current: {"node":"0.10.25","npm":"1.4.21"})
+ ```
+Update your node.js. See [here](https://davidwalsh.name/nvm)
+
+* Gradle build fails with the following message:
+ ```java
+A problem occurred starting process 'command 'react-native''
+ ```
+ You need to install react-native. See the Prerequisites section above.
