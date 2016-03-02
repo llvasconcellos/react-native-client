@@ -38,7 +38,8 @@ public class MainActivity extends ReactActivity {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
         new VectorIconsPackage(),
-        new ReactMaterialKitPackage()
+        new ReactMaterialKitPackage(),
+        new MapSwipeReactPackage()
       );
     }
 }
