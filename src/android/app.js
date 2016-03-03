@@ -8,7 +8,8 @@ var {
   StyleSheet,
   AppRegistry,
   View,
-  Text
+  Text,
+  BackAndroid
 } = React;
 
 
@@ -30,6 +31,8 @@ var TimerMixin = require('react-timer-mixin');
 
 AppRegistry.registerComponent('HomeScreen', () => HomeScreen);
 
+var _navigator;
+
 var MapswipeClient = React.createClass({
 
     mixins: [TimerMixin],
@@ -37,7 +40,18 @@ var MapswipeClient = React.createClass({
 
     },
 
+    componentWillMount() {
+      BackAndroid.addEventListener('hardwareBackPress', () => {
+        if ( _navigator.getCurrentRoutes().length === 1 ) {
+          return false;
+        }
+        _navigator.pop();
+        return true;
+      });
+    },
+
     _renderScene(route, navigator) {
+      _navigator = navigator;
       if(route.id === 1) {
         return <HomeScreen navigator={navigator}/>
       } else if(route.id === 2) {
