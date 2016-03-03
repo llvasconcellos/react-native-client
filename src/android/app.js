@@ -12,9 +12,7 @@ var {
   BackAndroid
 } = React;
 
-
 var BaseConfig = Navigator.SceneConfigs.FadeAndroid;
-
 
 var CustomSceneConfig = Object.assign({}, BaseConfig, {
   // A very tighly wound spring will make this transition fast

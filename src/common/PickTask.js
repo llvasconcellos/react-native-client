@@ -1,6 +1,5 @@
 'use strict';
 
-
 import React, {
   AppRegistry,
   Component,
@@ -13,12 +12,12 @@ import React, {
   ScrollView,
 } from 'react-native';
 
-
-
 import {
   MKButton,
   MKIconToggle,
   getTheme,
+  setTheme,
+  MKColor,
 } from 'react-native-material-kit';
 
 var pybossa_path = {
@@ -27,13 +26,11 @@ var pybossa_path = {
     taskrun: "/api/taskrun",
     user: "/api/user"
 }
-var ScrollableTabView = require('react-native-scrollable-tab-view');
 
+var ScrollableTabView = require('react-native-scrollable-tab-view');
 var Icon = require('react-native-vector-icons/FontAwesome');
 var myIcon = (<Icon name="rocket" size={30} color="#900" />);
 var Button = require('react-native-material-button');
-
-import { setTheme, MKColor } from 'react-native-material-kit';
 
 // customize the material design theme
 setTheme({
@@ -43,12 +40,9 @@ setTheme({
 });
 
 const theme = getTheme();
-
 const styles = require('./styles');
 
-
 const Cards = React.createClass({
-
 
   _onMapping: function() {
     this.props.navigator.push({id:3,});
@@ -56,7 +50,7 @@ const Cards = React.createClass({
 
   render(){
     theme.cardTitleStyle.color = "#E8E8E8";
-      theme.cardTitleStyle.fontSize = 15;
+    theme.cardTitleStyle.fontSize = 15;
     var base64Icon = 'http://www.getmdl.io/assets/demos/welcome_card.jpg';
     var action = (<Text> My action</Text>);
     var menu = (
@@ -93,7 +87,6 @@ const Cards = React.createClass({
             <TouchableHighlight style={styles.buttonArea} onPress={this._onMapping}>
               <View>
                  <Text style={styles.button}>
-
                  <Icon name="map-o" size={15} style={styles.mappingIcon} /> Start Mapping</Text>
                  </View>
                </TouchableHighlight>
@@ -103,47 +96,47 @@ const Cards = React.createClass({
       </ScrollView>
     )
   }
-});
 
+});
 module.exports = Cards;
 
 var FlowPage = React.createClass({
 
-
   render: function() {
     return (
       <View>
-      <Text>flow</Text>
+        <Text>flow</Text>
       </View>
     );
   }
+
 });
 module.exports = FlowPage;
 
 var JestPage = React.createClass({
 
-
   render: function() {
     return (
       <View>
-      <Text>jest</Text>
+        <Text>jest</Text>
       </View>
     );
   }
+
 });
 module.exports = JestPage;
 
 var PickTask = React.createClass({
+
   render: function() {
     return (
       <ScrollableTabView>
-             <Cards tabLabel="Not Started" navigator={this.props.navigator}/>
-             <FlowPage tabLabel="In Progress" />
-             <JestPage tabLabel="Finished" />
+        <Cards tabLabel="Not Started" navigator={this.props.navigator}/>
+        <FlowPage tabLabel="In Progress" />
+        <JestPage tabLabel="Finished" />
       </ScrollableTabView>
     );
   }
+
 });
-
-
 module.exports = PickTask;
